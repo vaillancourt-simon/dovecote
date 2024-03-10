@@ -1,22 +1,38 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Tab1.css';
+import React, { useState } from "react";
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonItemDivider,
+} from "@ionic/react";
+import SearchBar from "../components/SearchBar";
+import ProfileResults from "../components/ProfileResults";
 
 const Tab1: React.FC = () => {
+  const [profiles, setProfiles] = useState([]);
+
+  const handleSearch = (searchResults) => {
+    setProfiles(searchResults);
+  };
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab 1</IonTitle>
+          <IonTitle>Liste d'amis</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 1</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer name="Tab 1 page" />
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ marginBottom: "20px" }}>
+            <SearchBar onSearch={handleSearch} />
+          </div>
+          <div>
+            <ProfileResults profiles={profiles} />
+          </div>
+        </div>
       </IonContent>
     </IonPage>
   );
